@@ -19,6 +19,16 @@ if ($_SESSION['rol'] !== 'Mesero'){
     <title>Document</title>
 </head>
 <body> 
+
+<style>
+        .puntero{
+            cursor: pointer;
+        }
+        .ocultar{
+            display: none;
+        }
+</style>
+
     <nav>
         <p>Hola <?php echo $_SESSION['usuario'];?></p>
         <ul><a href="salir.php">Salir</a></ul>
@@ -34,8 +44,8 @@ if ($_SESSION['rol'] !== 'Mesero'){
                 </tr>
             </thead>
             
-            <tbody id="tbody">
-                <tr>
+            <tbody id="contenedor">
+                <tr class="clonar">
                     <td>
                         <select name="productos" id="producto1">
                             <option></option>
@@ -47,10 +57,13 @@ if ($_SESSION['rol'] !== 'Mesero'){
                     <td>
                         <input type="number" id="nombre" name="nombre" value="">
                     </td>
+                    <td>
+                        <span class="ocultar puntero" >Eliminar</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <button type="button" onclick="myFunction()">+ productos</button>
+        <button type="button" onclick="/*myFunction()*/" id="agregar">+ productos</button>
         <input type="submit" value="Submit">
     </form>
     
@@ -64,28 +77,6 @@ if ($_SESSION['rol'] !== 'Mesero'){
     var infoProducto = <?php echo json_encode(infoProducto($conn)) ?>;
     var select = document.getElementById('producto1');
     var count = 1;
-   
-    function myFunction() {
-    count++
-    document.getElementById("tbody").innerHTML += `
-        <tr>
-            <td>
-                <select name="producto" id="producto${count}">
-                    <option></option>
-                </select>
-            </td>
-            <td>
-                <p id="precio${count}"></p>
-            </td>
-            <td>
-                 <input type="number" id="nombre" name="nombre" value="">
-            </td>
-        </tr>
-        `;
-    ;
-
-    console.log(count)
-    }
 
     console.log(infoProducto);
     // este for se encarga sacar la lista de opciones en base a la consulta de php
@@ -110,6 +101,34 @@ if ($_SESSION['rol'] !== 'Mesero'){
             }
         });
 
+
+        //Codigo Funcional
+        let agregar = document.getElementById('agregar');
+        let contenido = document.getElementById('contenedor');
+
+        agregar.addEventListener('click', e =>{
+            e.preventDefault();
+            let clonado = document.querySelector('.clonar');
+            let clon = clonado.cloneNode(true);
+
+            contenido.appendChild(clon).classList.remove('clonar');
+
+            let remover_ocultar = contenido.lastChild.childNodes[7].querySelectorAll('span');
+
+            //comprueba que este leyendo la etiqueta correcta
+            console.log(contenido.lastChild.childNodes[7])
+            
+            remover_ocultar[0].classList.remove('ocultar');
+        });
+
+        contenido.addEventListener('click', e =>{
+            e.preventDefault();
+            if(e.target.classList.contains('puntero')){
+                let contenedor  = e.target.parentNode.parentNode;
+            
+                contenedor.parentNode.removeChild(contenedor);
+            }
+        });
 
     </script>
     <script src="js/registrar.js"></script>
