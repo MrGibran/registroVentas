@@ -14,5 +14,5 @@ cobrar($conn,$idFolio,$fecha);
    setTimeout(function () {
    // Redirigir con JavaScript
    window.location.href= `../`;
-    }, 1000);
+    }, 30);
 </script>

@@ -18,5 +18,5 @@ CrearMesa($conn,$mesa,$fecha,$usuario);
    setTimeout(function () {
    // Redirigir con JavaScript
    window.location.href= '../index.php';
-    }, 1000);
+    }, 30);
 </script>

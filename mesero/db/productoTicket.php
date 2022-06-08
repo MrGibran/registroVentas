@@ -18,8 +18,9 @@ InsertardetalleTicket($conn,$nDatos,$Productos,$Cantidad,$id);
 ?>
 
 <script>
+    var id = <?php echo $id ?>;
    setTimeout(function () {
    // Redirigir con JavaScript
-   window.location.href= '../index.php';
-    }, 1000);
+   window.location.href= `editar.php?id=${id}`;
+    }, 10);
 </script>
