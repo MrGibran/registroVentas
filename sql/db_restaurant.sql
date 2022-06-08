@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2022 a las 06:58:19
+-- Tiempo de generación: 08-06-2022 a las 10:24:50
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -41,7 +41,8 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`id_categoria`, `Categoria`) VALUES
 (1, 'Ensaladas'),
 (2, 'Bebidas'),
-(3, 'Combos Express');
+(3, 'Combos Express'),
+(5, 'Postres');
 
 -- --------------------------------------------------------
 
@@ -67,9 +68,32 @@ CREATE TABLE `detalle_ticket` (
   `id_producto` int(11) NOT NULL,
   `folio` int(11) NOT NULL,
   `cantidad` int(11) DEFAULT NULL,
-  `precio` float DEFAULT NULL,
-  `descuento` float DEFAULT NULL
+  `precio` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `detalle_ticket`
+--
+
+INSERT INTO `detalle_ticket` (`id_detalle_ticket`, `id_producto`, `folio`, `cantidad`, `precio`) VALUES
+(7, 3, 48, 2, 46),
+(9, 3, 48, 2, 46),
+(10, 3, 48, 2, 46),
+(11, 3, 48, 2, 46),
+(12, 3, 48, 2, 46),
+(13, 3, 48, 2, 46),
+(14, 3, 48, 2, 46),
+(15, 3, 48, 2, 46),
+(16, 1, 48, 1, 23),
+(20, 3, 54, 1, 23),
+(21, 2, 54, 2, 20),
+(23, 1, 48, 2, 46),
+(25, 3, 55, 1, 23),
+(26, 1, 56, 2, 46),
+(27, 3, 56, 2, 46),
+(28, 1, 56, 1, 23),
+(29, 7, 57, 4, 176),
+(30, 6, 57, 1, 99);
 
 -- --------------------------------------------------------
 
@@ -106,8 +130,13 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` (`id_producto`, `categoria_id_categoria`, `nombre`, `Precio_de_Venta`, `Descripcion`) VALUES
 (1, 2, 'Refresco 355 ml', 23, 'Refresco de cola'),
-(2, 2, 'Agua de Sabor', 10, 'Agua fresca de diferente tipo de sabor'),
-(3, 1, 'Ensalada Cesar', 23, 'Ensalada tipo Cesar');
+(2, 2, 'Aguas de Sabor', 11, 'Agua fresca de diferente tipo de sabores'),
+(3, 1, 'Ensalada Cesar', 23, 'Ensalada tipo Cesar'),
+(4, 2, 'Jarrito 500ml', 18, 'Jarritos de Varios Sabores'),
+(5, 1, 'Pescado al mojo de Ajo', 23, 'Pescado al mojo de ajo'),
+(6, 1, 'Pescado asado', 99, 'Pescado asado'),
+(7, 2, 'Naranjada', 44, 'Naranjada'),
+(8, 5, 'Carlota de Limon', 25, 'Delicioso postre casero\r\n');
 
 -- --------------------------------------------------------
 
@@ -118,11 +147,24 @@ INSERT INTO `producto` (`id_producto`, `categoria_id_categoria`, `nombre`, `Prec
 CREATE TABLE `ticket` (
   `folio` int(11) NOT NULL,
   `usuario` int(11) NOT NULL,
-  `fecha` date DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
   `mesa` varchar(12) DEFAULT NULL,
   `impuesto` float DEFAULT NULL,
-  `total` float DEFAULT NULL
+  `total` float DEFAULT NULL,
+  `estado` varchar(10) NOT NULL,
+  `fecha_salida` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ticket`
+--
+
+INSERT INTO `ticket` (`folio`, `usuario`, `fecha`, `mesa`, `impuesto`, `total`, `estado`, `fecha_salida`) VALUES
+(48, 2, '2022-06-07 14:12:41', '3', 0, 437, 'pendiente', NULL),
+(54, 2, '2022-06-07 23:19:03', '1', 0, 43, 'cobrado', '2022-06-08 01:38:45'),
+(55, 2, '2022-06-08 01:36:00', '3', 0, 23, 'cobrado', '2022-06-15 01:37:27'),
+(56, 3, '2022-06-08 01:59:22', '1', 0, 115, 'pendiente', NULL),
+(57, 2, '2022-06-08 05:42:44', '2', 0, 275, 'cobrado', '2022-06-08 08:19:25');
 
 -- --------------------------------------------------------
 
@@ -144,7 +186,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `nickname`, `rol`, `nombre`, `contrasena`) VALUES
 (1, 'ADMIN', 'Administrador', 'Christian', 'password'),
-(2, 'MESE01', 'Mesero', 'Juanito Prueba', 'password');
+(2, 'MESE01', 'Mesero', 'Juan', 'password'),
+(3, 'MESE02', 'Mesero', 'Alfredo', 'password');
 
 --
 -- Índices para tablas volcadas
@@ -206,7 +249,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -218,7 +261,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `detalle_ticket`
 --
 ALTER TABLE `detalle_ticket`
-  MODIFY `id_detalle_ticket` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
@@ -230,19 +273,19 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
