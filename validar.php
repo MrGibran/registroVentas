@@ -15,10 +15,11 @@ function validarUsuario($conn,$nickname,$password){
         echo 'Hay algo mal';
     } else {
         if ($nickname == 'ADMIN') {
-            ///session_start();
-            //$_SESSION[] = $data[3];
-            
-            //var_dump($_SESSION);
+            session_start();
+            $_SESSION['id'] = $data[0];
+            $_SESSION['rol'] = $data[2];
+            $_SESSION['usuario'] = $data[3];
+            header("Location:admin/index.php");
         }else{
             session_start();
             $_SESSION['id'] = $data[0];
