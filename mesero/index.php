@@ -22,6 +22,8 @@ if ($_SESSION['rol'] !== 'Mesero'){
 <body> 
     <nav>
         <p>Hola <?php echo $_SESSION['usuario'];?></p>
+        <ul><a href="#">Inicio</a></ul>
+        <ul><a href="cobrados.php">Cuentas Cobradas</a></ul>
         <ul><a href="salir.php">Salir</a></ul>
     </nav>
 
@@ -47,18 +49,18 @@ if ($_SESSION['rol'] !== 'Mesero'){
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+            <tbody>
             <?php
             foreach(MesasPendientes($conn,$_SESSION['id']) as $array){
                 echo "<tr>";
                 echo "<td>" . $array[3] . "</td>";
-                echo "<td>" . $array[5] . "</td>";
+                echo "<td>$" . $array[5] . "</td>";
                 echo "<td>" . $array[6] . "</td>";
                 echo "<td> <a href='db/editar.php?id=$array[0]'> Detalles</a>  </td>";
                 echo "</tr>";
             }
             ?>
-        </tbody>
+            </tbody>
         </table>
     </div>
 

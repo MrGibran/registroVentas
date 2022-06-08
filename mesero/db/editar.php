@@ -4,6 +4,7 @@ include 'funciones.php';
 include 'conn.php';
 
 $datos = editarMesa($conn,$_GET["id"]);
+$idProducto = $_GET["id"];
 
 ?>
 <!DOCTYPE html>
@@ -15,6 +16,9 @@ $datos = editarMesa($conn,$_GET["id"]);
     <title> Editar</title>
 </head>
 <body>
+    <nav>
+        <a href="../"> Regresar</a>
+    </nav>
     <style>
             .puntero{
                 cursor: pointer;
@@ -50,14 +54,13 @@ $datos = editarMesa($conn,$_GET["id"]);
         </thead>
         <tbody>
             <?php
-            foreach(detalleTicket($conn,$_GET["id"]) as $array){
+            foreach(detalleTicket($conn,$idProducto) as $array){
                 echo "<tr>";
                 echo "<td>" . $array[1] . "</td>";
-                echo "<td>" . $array[3] . "</td>";
+                echo "<td>" . $array[2] . "</td>";
                 echo "<td>$" . $array[3] . "</td>";
                 echo "<td>$" . $array[4] . "</td>";
-                echo "<td><a href='editarIndividual.php?idProducto=$array[0]'>Editar</a></td>";
-                echo "<td><a href='borrar.php?idProducto=$array[0]'>Borrar</a></td>";
+                echo "<td><a href='borrar.php?idProducto=$array[0]&id=$idProducto'>Borrar</a></td>";
                 echo "</tr>";
             }
             ?>
@@ -90,7 +93,7 @@ $datos = editarMesa($conn,$_GET["id"]);
         <button type="button" id="agregar">+ productos</button>
         <input type="submit" value="Agregar Productos">
     </form>
-
+    <a href="cobrar.php?id=<?php echo $idProducto?>">Cobrar</a>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //Vine una conjuncion de php y javascript
