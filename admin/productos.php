@@ -55,8 +55,7 @@ if ($_SESSION['rol'] !== 'Administrador'){
             <tr>
                 <th>Categoria</th>
                 <th>Producto</th>
-                <th>Precio</th>
-                <th>Descripcion</th>
+                <th>PU</th>
                 <th></th>
             </tr>
         </thead>
@@ -67,7 +66,6 @@ if ($_SESSION['rol'] !== 'Administrador'){
                 echo "<td>" . $array[1] . "</td>";
                 echo "<td>" . $array[2] . "</td>";
                 echo "<td>$" . $array[3] . "</td>";
-                echo "<td>" . $array[4] . "</td>";
                 echo "<td> <a href='db/editarProducto.php?id=$array[0]' class='btn btn-dark'> Editar</a>  </td>";
                 echo "</tr>";
             }

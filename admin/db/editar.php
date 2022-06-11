@@ -62,8 +62,8 @@ $idProducto = $_GET["id"];
             <thead>
                     <tr>
                         <th>Producto</th>
-                        <th>Cantidad</th>
                         <th>Precio</th>
+                        <th>Cantidad</th>
                         <th>Total</th>
                         <th></th>
                     </tr>
@@ -73,8 +73,8 @@ $idProducto = $_GET["id"];
                 foreach(detalleTicket($conn,$idProducto) as $array){
                     echo "<tr>";
                     echo "<td>" . $array[1] . "</td>";
-                    echo "<td>" . $array[2] . "</td>";
                     echo "<td>$" . $array[3] . "</td>";
+                    echo "<td>" . $array[2] . "</td>";
                     echo "<td>$" . $array[4] . "</td>";
                     echo "<td><a href='borrar.php?idProducto=$array[0]&id=$idProducto' class='btn btn-danger'>Borrar</a></td>";
                     echo "</tr>";

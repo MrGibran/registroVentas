@@ -71,6 +71,7 @@ function detalleTicket($conn,$id){
     return $data;
 }
 
+
 function InsertardetalleTicket($conn,$nDatos,$Productos,$Cantidad,$id){
     $values = [];
     for ($i=1; $i <= $nDatos; $i++) {
@@ -79,13 +80,13 @@ function InsertardetalleTicket($conn,$nDatos,$Productos,$Cantidad,$id){
         $result = mysqli_query($conn, $consulta);
         $precio = mysqli_fetch_array($result, MYSQLI_NUM);
         $precioFinal = $precio[0] * $Cantidad[$i];
-        $values [] = "(NULL, '$Productos[$i]', '$id', '$Cantidad[$i]', '$precioFinal')";
+        $values [] = "(NULL, '$Productos[$i]', '$id', $precio[0], '$Cantidad[$i]', '$precioFinal')";
     }
 
     $sql="INSERT INTO detalle_ticket VALUES \n" .implode(",\n", $values);
 
     if (mysqli_query($conn, $sql)) {
-        echo "New record created successfully";
+        echo "Nuevo registro Ingresado";
         $consulta2 = "SELECT SUM(precio) FROM detalle_ticket WHERE folio = '$id'";
         $result = mysqli_query($conn, $consulta2);
         $Total = mysqli_fetch_array($result, MYSQLI_NUM);
@@ -141,7 +142,7 @@ function actualizarCategorias($conn,$id,$categoria){
 }
 
 function verProductos($conn){
-    $sql = "SELECT * FROM producto";
+    $sql = "SELECT producto.id_producto, categoria.Categoria, producto.nombre, producto.Precio_de_Venta, producto.Descripcion FROM producto JOIN categoria ON producto.id_producto = categoria.id_categoria;";
     $result = mysqli_query($conn, $sql);
     $data = mysqli_fetch_all($result, MYSQLI_NUM);
     return $data;

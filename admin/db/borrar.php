@@ -14,5 +14,5 @@ borrarDetalleTicket($conn,$idDetalleTicket,$idFolio);
    setTimeout(function () {
    // Redirigir con JavaScript
    window.location.href= `editar.php?id=${id}`;
-    }, 500);
+    }, 100);
 </script>

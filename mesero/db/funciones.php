@@ -56,13 +56,13 @@ function InsertardetalleTicket($conn,$nDatos,$Productos,$Cantidad,$id){
         $result = mysqli_query($conn, $consulta);
         $precio = mysqli_fetch_array($result, MYSQLI_NUM);
         $precioFinal = $precio[0] * $Cantidad[$i];
-        $values [] = "(NULL, '$Productos[$i]', '$id', '$Cantidad[$i]', '$precioFinal')";
+        $values [] = "(NULL, '$Productos[$i]', '$id', $precio[0], '$Cantidad[$i]', '$precioFinal')";
     }
 
     $sql="INSERT INTO detalle_ticket VALUES \n" .implode(",\n", $values);
 
     if (mysqli_query($conn, $sql)) {
-        echo "New record created successfully";
+        echo "Nuevo registro Ingresado";
         $consulta2 = "SELECT SUM(precio) FROM detalle_ticket WHERE folio = '$id'";
         $result = mysqli_query($conn, $consulta2);
         $Total = mysqli_fetch_array($result, MYSQLI_NUM);
